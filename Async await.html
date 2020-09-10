@@ -1,0 +1,180 @@
+<script>
+    'use strict';
+    // Có một cú pháp để làm việc với promise thoe một cách thoải mãi hơn. 
+    //**** Async funcion ****//
+    // Có thể được đặt lên trước mỗi hàm, hiểu đơn giản là nó luôn trả về một promise
+//     async function f(){
+//         return 1;
+//     }
+//  // trong ví dụ kết quả của lời hứa được trả về là 1 
+//     f().then(console.log);
+// // Cũng có thể trả về lời hứa một cách rõ ràng, và chúng giống nhau
+//     async function f2(){
+//         return new Promise.resolve(1);
+//     }
+//     f2()
+
+// Không chỉ vậy keyword await chỉ hoạt động bên trong function và nó khá là tuyệt
+//*** Cú pháp await ****//
+//let value = await promise; 
+// nó được tạo ra khi lời hứa đã ổn định và trả về kết quả
+// Ví dụ lời hứa bên dưới sẽ được giải quyết trong 1s ,
+    // async function f3(){
+    //     let promise = new Promise((resolve, reject) => {
+    //         setTimeout((result) =>  resolve('Done'), 1000);
+    //     });
+    //     let result =  await promise;
+    //     alert(result);
+    // }
+    // f3();
+    //Viết lại mã promise bằng async await cho showAvatar()
+    // async function ShowAvatar(){
+    //     // read our JSON
+    //     let response = await fetch('user.json');
+    //     // load JSON
+    //     let user = await response.json();
+    //     // Load json github
+    //     let githubResponse = await fetch(`https://api.github.com/users/${user.name}`);
+    //     //load Json github
+    //     let userGithub = await githubResponse.json();
+    //     // create img 
+    //     let img = document.createElement('img');
+    //     let src = img.avatar_url;
+    //     document.body.append(img);
+
+    //     // wait 3 giaay
+    //     await new Promise((resolve, reject) => {
+    //         setTimeout(() => resolve(), 3000)
+    //     });
+    //     img.remove();
+    //     return userGithub;
+    // }
+    // ShowAvatar();
+
+//Bất cứ trường hợp nào sử dụng .then cũng có thể thay thế bằng await
+
+class Thenable{
+    constructor(num){
+        this.num = num;
+    }
+    then(resolve, reject) {
+       let timeId = setInterval(() => {
+          resolve(this.num *2);
+       }, 1000);
+       setTimeout(() => {clearInterval(timeId)}, 5000)
+    }
+};
+
+async function f(){
+    let result = await new Thenable(3);
+    console.log(result);
+}
+f();
+
+// function loadJson(url) {
+//   return fetch(url)
+//     .then(response => {
+//       if (response.status == 200) {
+//         return response.json();
+//       } else {
+//         throw new Error(response.status);
+//       }
+//     })
+// }
+
+// loadJson('no-such-user.json')
+//   .catch(alert); // Error: 404
+async function loadJson(url){
+   let reponse = await fetch(url);
+   if(reponse.status == 200 ){
+       let json = await reponse.json();
+       console.log(json)
+       return json;
+   }else{
+       throw new Error(reponse.status);
+   }
+}
+loadJson('https://api.github.com/users/').catch(console.log);
+
+//
+// class HttpError extends Error {
+//   constructor(response) {
+//     super(`${response.status} for ${response.url}`);
+//     this.name = 'HttpError';
+//     this.response = response;
+//   }
+// }
+
+// function loadJson(url) {
+//   return fetch(url)
+//     .then(response => {
+//       if (response.status == 200) {
+//         return response.json();
+//       } else {
+//         throw new HttpError(response);
+//       }
+//     })
+// }
+
+// // Ask for a user name until github returns a valid user
+// function demoGithubUser() {
+//   let name = prompt("Enter a name?", "iliakan");
+
+//   return loadJson(`https://api.github.com/users/${name}`)
+//     .then(user => {
+//       alert(`Full name: ${user.name}.`);
+//       return user;
+//     })
+//     .catch(err => {
+//       if (err instanceof HttpError && err.response.status == 404) {
+//         alert("No such user, please reenter.");
+//         return demoGithubUser();
+//       } else {
+//         throw err;
+//       }
+//     });
+// }
+
+// demoGithubUser();
+class HttpError extends Error{
+    constructor(response) {
+        super(`${response.status} for ${response.url}`);
+        this.name = 'HttpError';
+        this.response = response;
+    }
+}
+async function ChayJson(url){
+    let response = await fetch(url);
+    if(response.status == 200){
+        return response.json();
+    }else{
+        throw new HttpError(response);
+    }
+}
+async function demoGithubUser(){
+    let name = prompt('nhap vao ten van?', 'iliakan');
+    let user = await ChayJson(`https://api.github.com/users/${name}`);
+    if(user){
+        console.log(`Full name: ${user.name}.`);
+        return user;
+    }else{
+        if(err instanceof HttpError && err.response.status == 404){
+            console.log('Khong co user');
+            return demoGithubUser();
+        }else{
+            throw err;
+        }
+    }
+}
+demoGithubUser();
+
+// làm thế nào để gọi được kết quả của async ở 1 funcion khác
+async function wait(){
+    await new Promise((resolve) => setTimeout(()=> resolve, 1000));
+    return 12;
+}
+function f0(){
+    await.then(result => console.log(result));
+}
+f0();
+</script>

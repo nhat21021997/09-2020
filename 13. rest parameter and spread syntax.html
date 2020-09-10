@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <script>
+        /*******************************************
+            Làm thế nào để truyền mảng như các tham số?
+            ... thu thập tất cả các tham số vào một biến sau dấu ba chấm gọi là mảng
+            lưu ý là rest chỉ được đật ở cuối, 
+        */
+
+        function sumAll(...args){
+            let sum = 0;
+            for(let arg of args){
+                sum +=arg;
+            }
+            return sum;
+        }
+        let run = sumAll(1, 3, 5); // 9
+        console.log(run);
+        //--------------Spread syntax
+        //Dùng để chuyển đổi từ mảng về số thông thường trong các hàm sử dụng tham số
+        let arr = ['3', '4', '5'];
+        //Sử dụng mảng trực tiếp sẽ gây ra 1 lỗi
+        let lonnhat = Math.max(arr); // một lỗi xuất hiện, vì Math.max chỉ nhận list number
+        //cách để so sánh phần tử trong mảng
+        let lonnhat1 = Math.max(arr[0], arr[1]); // Nhưng chúng ta có nhiều và nhiều hơn thế
+        //C Cách tối ưu nhất là sử dụng spread
+        let lonNhat = Math.max(...arr);
+        console.log(lonNhat);
+
+        //---------------Spread dùng để gộp [];
+        let arr1 = ['a'];
+        let merge = [...arr, ...arr1];
+         //---------------Spread dùng để đưa chuổi về mảng
+         let stringT = 'xin chao';
+         let tachStr = [...stringT];
+         console.log(tachStr);
+         //----------Khác biệt giữa Array.from() và spread
+         let stringD =  'Hello';
+         let arrLike = Array.from(stringD); // trả về một Array-Like
+         let iterator = [...stringD]; // trả về một mảng thông thường
+         console.log(arrLike);
+         console.log(iterator);
+        //-------Làm thế nào để copy một array hoặc một object
+        let arrOriginal = ['1', '2', '3'];
+        let arrCopy = [...arrOriginal];
+        console.log(JSON.stringify(arrOriginal) == JSON.stringify(arrCopy))// true
+        console.log(arrOriginal === arrCopy)// false, không cùng tham chiếu
+        arrCopy.push('4');
+        console.log(arrOriginal); // 123
+        console.log(arrCopy); // 1234
+        //Đối tượng ta làm tương tự
+        
+    </script>
+</body>
+</html>

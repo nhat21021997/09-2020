@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // <html>  =  document.documentElement;
+        //<body>  = document.body;
+        // <head> = document.head;
+        // Trong DOM giá trị null nghĩa là không tồn tại
+        //*************Children: childNodes, firstChild, lastChild
+        // Child nodes( hoặc child): là đứa con đầu tiên(gần nhất), vì dụ <head> và <body> là đứa con của <html>
+        //Descendants: bao gồm tất cả phần tử phía sau, gồm con và con của con và hơn thế. 
+        // childNodes sẽ thu thập tất cả các nút con, bao gồm cả text node
+        // elem.ChildNodes[0] === elem.firstChild, elem.[elem.childNodes.length -1] ===  elem.lastChild, elem.hasChildNodes() check xem có nút con nào không
+
+        // DOM collection
+        // Như đã thấy childNode giống như một mảng, nhưng thực tế nó không phải mảng, Đúng hơn là một bộ sưu tập, một đặc biệt giống array-like
+        // Hệ quả quan trọng là dùng được for of để lặp lại chúng
+        for(let node of document.body.childNodes){
+            console.log(node); // hiển thị tất cả các node từ bộ sưu tập
+        }
+        // array method khôn glàm việc bởi vì nó không phải là array
+        // document.head.childNodes.filter 'Sẽ không hoạt động vì nó không phải mảng',
+        // chúng ta có thể dùng Array.from để chuyển đổi bộ sưu tập thành mảng
+        Array.from(document.head.childNodes).filter; // function
+        // Không sử dụng for in cho các dom collection
+    </script>
+    <script>
+        for(let i = 0; i < document.head.childNodes.length; i++){
+            console.log(document.head.childNodes[i]);
+        }
+    </script>
+    <script>
+        //siblings and the parent
+        //Siblings là các nút con có cùng cha mẹ. 
+        // <html>
+        //     <head></head><body></body> // body được gọi là sibling bên phải, hoặc next của body, còn head được gọi là previous hoặc left của body
+        // </html>
+        // Có sẵn nextSibling, previousSibling
+        //vidu
+        document.body.childNodes === document.documentElement // true
+        document.body.previousSibling // htmlHeadElement
+        document.head.nextSibling // htmlBodyElement
+        // parentNode và parentElement đều trả về cha mẹ của nó, nhưng có một ngoại lệ, với documentElemnt
+        // Một script không thể truy cập một phần tử khi phần tử đó không tồn tại tại thời điểm nó chạy. (nghĩa là document.body ở <head> trước <body> lúc nó chạy chưa có body lên kết quả sẽ là null)
+        
+    </script>
+</body>
+</html>

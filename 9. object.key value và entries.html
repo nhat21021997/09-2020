@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object key values và entries</title>
+</head>
+<body>
+    <script>
+        /*---------------------------------------------------------------
+            Đối tượng đơn giản có sẵn: Object.key(obj), Object.values(obj),
+            Object.entries(obj), trả về một mảng các phần tử.
+            Sự khác biệt giữa Map và Object
+            ********Map***************************Object*******************
+            * map.keys() return iterable * Object.key(obj),return real array
+            ****************************************************************
+            Để object sử dụng được các phương thức của mảng, ta sử dụng 
+            Objecb.fromEntries();
+        */
+        let user = {
+            name: 'John',
+            age: 20
+        };
+        for(let values of Object.values(user)){
+            console.log(values); // John, 20
+        }
+        //------------- Object.fromEntries(obj);
+        // Bên trong môi trường Object.fromEntries đối tượng sử dụng được tất cả các phương thức của mảng
+        let fruid =  {
+            cam: 3,
+            tao: 4, 
+            quyt: 0,
+        };
+        let doubleFruid = Object.fromEntries(
+            Object.entries(fruid).map(([key, value]) => [key, value*2])
+        );
+        console.log(doubleFruid); // kết quả là một obj
+
+    </script>
+</body>
+</html>

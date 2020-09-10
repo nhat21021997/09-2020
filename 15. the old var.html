@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The old var</title>
+</head>
+<body>
+    <script>
+        //Var Không có phạm vi khối {}, ngược lại với let
+        if(true){
+            var a = 1;
+        }
+        console.log(a); // 1
+        // Var nằm trong khối mà bên ngoài func, thì nó chỉ chạy được trong phạm vi func,
+        function testVar(){
+            if(true){
+                var b = 'b';
+            }
+            console.log('trong func: ' + b);
+        }
+        testVar();
+        console.log('ngoai func: ' + b); // b chưa được định nghĩa
+        // var có thể định nghĩa sau khi đã dùng.
+        function oldVar(){
+            // the same var old;
+            old = '2019';
+            console.log(old);
+            var old;
+        }
+        oldVar();
+        // Không thể gọi trước khi gán và định nghĩa
+        {
+            console.log(age);// êrr
+            var age = 20;
+        }
+        // IIFE (immediately-invoked function expressions) Không sử dụng cho ngày nay,
+
+    </script>
+</body>
+</html>

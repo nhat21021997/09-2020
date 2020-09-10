@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class basic hmtl</title>
+</head>
+<body>
+    <script>
+        //Phương thức constructor được tọa tự động bởi new, Chúng ta có thể khởi tạo Object từ đây.
+        //1. Đối tượng được tạo, 2. constructor được chạy với arg đã cho và gán nó cho this.name để chạy nó
+        // Sau đó chúng ta có thể gọi phương thức user.sayHi()
+        // Tạo mới func User, nó trở thành kết quả của khai báo lớp, function code lấy kết quả từ phương thức constuctor,
+        // Class mà có tên thì nó chỉ có thể nhìn thấy bên trong nó. 
+        class User{
+            constructor(name){
+                this.name = name;
+            }
+            sayHi(){
+                console.log('hello' + this.name);
+            }
+        }
+        let user = new User('John');
+        user.sayHi();
+
+        // name trong class
+        let User1 = class MyClass{
+            sayhi(){
+                console.log(MyClass);
+            }
+        }
+        new User1().sayhi();
+        //console.log(MyClass); // err
+
+        // Cũng có thể tạo class bên trong funtion
+        function makeClass(square){
+            //tạo class và trả về nó
+            return class{
+               sayHi(){
+                   console.log(square);
+               }
+            }
+        }
+        let makerun = makeClass('Hello');
+        new makerun().sayHi();
+        // Cũng giống như đối tượng class cũng có getter và setter
+        class Nguoidung{
+            constructor(name){
+                this.name = name;
+            }
+            get name(){
+                return this._ten;
+            }
+            set name(value){
+                if(value.length < 4){
+                    console.log("ten qua ngan");
+                    return;
+                }else{
+                    console.log(this._ten = value);
+                }
+            }
+        }
+        let nguoidung = new Nguoidung("JHggg");
+        //
+
+    </script>
+</body>
+</html>

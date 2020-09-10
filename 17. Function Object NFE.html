@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Object NFE</title>
+</head>
+<body>
+    <script>
+        //Giống như đã biết 1 func trong js là một giá trị. Mỗi giá trị đều có 1 kiểu dữ liệu
+        // function là gì? nó là một object.
+        // Để gọi tên của fumc dùng dấu chấm thuộc tính name 
+        // Lấy độ dài dùng thuộc tính length
+        // Đặt tên cho biến của func expression, để gọi lại chính nó trong func
+        //----------------
+        function sayHi(a, b, c, ...more){
+
+        }
+        console.log(sayHi.name); // sayHi
+        console.log(sayHi.length); // 3 (a, b, c) rest tham số không được tính
+
+       function ask(question, ...traloi){
+           let laYes = confirm();
+           for(let value of traloi){
+               if(value.length == 0){
+                   if(laYes) value();
+                   console.log(value)
+               }else{
+                   value(laYes);
+                   console.log(value)
+               }
+           }
+       }
+       ask('Hoi', ()=>{console.log(1)}, (result) => {console.log(result)});
+       //----------
+       let sayHiu = function name(who){
+        if(!who){
+            name('Sai roi'); // Gọi lại chính nó
+        }else{
+            console.log(who);
+        }
+       }
+       sayHiu('Dung roi');
+       //---------- Phân biệt dùng trực tiếp và đặt tên gọi
+    //    let ok = function (who){
+    //         if(who){
+    //             console.log(who);
+    //         }else{
+    //             ok('break');
+    //         }
+    //    }
+    //    let wecome = ok;
+    //    ok = null;
+    //    wecome(); // err
+    let ok = function name(who){
+            if(who){
+                console.log(who);
+            }else{
+                name('break'); // bh nó chạy với tên name
+            }
+       }
+       let wecome = ok; // sao chép ok cho wecome, 
+       ok = null; // khi xóa ok, wecome vẫn hoạt động, giống Object.assign()
+       wecome(); // err
+    //
+    </script>
+</body>
+</html>

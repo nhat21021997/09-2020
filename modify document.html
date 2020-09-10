@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //DOM modify là chìa khóa để tạo nguồn sống cho page
+        // Phần này sẽ được tìm hiểu tạo một phần tử mới một cách nhanh chóng và sửa đổi nội dung page đã tồn tại
+        // 1. Example: show a mess
+        // create element : let div = document.createElement('div');
+        // Create TextNode: let textNode = document.createTextNode(text);
+        //Tạo một thông báo
+        let div = document.createElement('div');
+        div.className = 'alert';
+        div.innerHTML = '<i> Tôi là </i> Người đẹp trai nhất';
+        // Khi tạo xong thế này nó vẫn chưa hiển thị được trên webpage, chúng ta cần chèn nó vào đâu đó trên document
+        //Trong ví dụ sẽ chèn vào phần tử body, có một phương thức đặc biệt là append();
+        document.body.append(div);
+        // Một số phương thức chèn khác: node.append(...node or string), node.prepend(), node.before(),...
+        // để xóa một node dùng node.remove();
+        
+        // Cloning nodes: cloneNode
+        // Làm thế nào để chèn thêm nhiều hơn một thông báo tương tự?
+        // Cách thay thế sẽ là sao chép cái div có hiện tại và sửa đổi text trong nó
+        //. Elem.cloneNode(true); Tạo một ra một bản sao mà gồm tất cả các phần tử con
+        //.  Elem.cloneNode(false); Tạo ra phần tử không bao gồm phần tử con
+
+    </script>
+    <style>
+        .alert {
+          padding: 15px;
+          border: 1px solid #d6e9c6;
+          border-radius: 4px;
+          color: #3c763d;
+          background-color: #dff0d8;
+        }
+        </style>
+        
+        <div class="alert" id="div3">
+          <strong>Hi there!</strong> You've read an important message.
+        </div>
+    <script>
+        let clone = div3.cloneNode(true);
+        console.log(clone)
+        clone.querySelector('strong').innerHTML = 'Nguyễn Văn Nhất'; // chỉ dom nó chưa hiện thị trên page
+        //hiện thị nó trên page
+        div3.after(clone); // tạo ra thẻ clone phía sau div3
+        
+    </script>   
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" onclick="countRabit()">
+    <div id="elem">Click Me</div>
+    <div id="multy">tạo nhiều handle cùng lúc</div>
+    <button id="objHanlde">Ok</button>
+    <script>
+        /***
+         * ** Mouse Event
+         *  Click: Khi nhấp chuột hoặc chạm vào cảm ứng
+         * contextmenu: khi right-click vào 1 element
+         * mouseover/ mouseout : Khi con trỏ đi qua/ rời kỏi một phần tử: 
+         * mousedow/ mouseup: Khi chuột được nhấn và nhả đi qua phần tử
+         * mousemovie: khi con chuột được di chuyển
+         * ** Keybroad Event
+         * keydow/keyup: khi keybroad được nhấn và nhả
+         * ** Element Event
+         * submit: khi người dùng bấm submit từ <form>
+         * focus: Khi người dùng focus on an elem, e.g: <input>
+         * ** Document Event
+         * DOMContentLoader: Khi HTML được load và xử lý
+         * ** Css Event:
+         * transitionend: khi một css-animation hoàn thành
+         * *** Event Handle
+         * Để phản ứng trên một event chúng ta có thể gán cho một handle, hoặc một function chạy các trường hợp của event
+         * ** HTML attribute
+         * Một xử lý được thiết lập trên HTMl vơi stên là on<event>: Trong ví dụ gán click cho input, sử dung onClick, 
+         * <input value="click me" onClick="alert('click')" type="button">
+         * Một HTML attribute không tiện lợi cho việc viết nhiều code, vậy sử dụng function thay thế. 
+         *  Có thể gắn mọt xử lý sử dụng DOM property on<event>: ví dụ elem.onclick
+         * để xóa một xử lý dùng elem.onclick = null
+         * ** Accessing the element : this
+         * this.innerHTML dùng để chỉ phần tử đang được xử lý
+         * ** Posible Mistakes: Những sai lầm có thể sảy ra
+         * Có thế cài đặt một function đã tồn tại như một xử lý: function sayThank(){} elem.onclick = sayThank;
+         * hãy cận thận function được gán cho sayThank chứ không phải sayThank(); nếu thêm () vào sau thì sẽ trở thành một cuộc gọi function, viết sayThank nghĩa là chúng ta lấy kết quả cho cuộc gọi chức năng
+         * Mặt khác trong HTML property chúng ta cần phải có dấu (), <input type="text" id = "elem" onclick = "sayThank()">
+         * vì vậy để đánh dấu cho thuộc tính tạo này: elemt.onclick = function(){ sayThank();}
+         * Không dùng setAttribute cho trình xử lý handle
+         * ** elemt.addEventListener(event, handler, [option]); event: vd: click, handle: function, option: once nếu là true thì listener tự động xóa sau khi nó kích hoạt,captrue, passive
+         * addEventListener cho phép chúng ta tạo nhiều handle
+         * 
+         */
+        function countRabit(){
+            for(let i = 0; i<3; i++){
+                console.log('dem tu mot den 2: ' + i);
+            }
+        }
+        // DOM Property
+        elem.onclick = function (){
+            elem.style.background = 'red';
+        }
+        // tạo nhiều handle cùng một lúc
+        function bgGreen(){
+            multy.style.background = 'green';
+        }
+        function colorWhite(){
+            multy.style.color = '#fff'
+        }
+        multy.addEventListener('click', bgGreen, true);
+        multy.onclick = () => multy.innerHTML = 'Thay doi thanh cong';
+        multy.addEventListener("click", colorWhite);
+
+        /**** Event Object
+         * Một số thuộc tính của event object: event.type : loại sự kiện đây là 'click', event.currentTaget : Phần tử xử lý sự kiên, chính xác nó giống this
+         * event.clientX, event.clientY: trả về trả về tọa độ tại điểm sự kiện
+         * **Object Handle: handleEvent
+         */
+
+         let obj = {
+             handleEvent(evnt) {
+                console.log(event.type + "__" + event.currentTarget)
+            }
+         }
+         objHanlde.addEventListener('click', obj)
+    </script>
+    <button id="elem3">Click me</button>
+    <div id="text">Text</div>
+    <script>
+        elem3.addEventListener('click', function (){
+            text.hidden = true;
+        });
+        function createButton(){
+            let button = document.createElement('button');
+            button.className = 'ok';
+            button.innerHTML = 'Nút Button';
+            document.body.append(button);
+            let classOk = document.querySelector('.ok');
+            classOk.addEventListener('click',function () {
+                classOk.hidden = true;
+            } )
+        }
+        createButton();
+    </script>
+        <div id="menu" class="classbut">
+            <span class="title">Tiêu đề</span>
+            <ul>
+                <li>1</li>
+                <li>2</li>
+            </ul>
+        </div>
+    <style>
+       .classbut > ul{
+           display: none;
+       }
+       .classbut.open ul{
+           display: block;
+       }
+       .classbut .title{
+           content: "-";
+       }
+       .classbut.open .title{
+           content: "+";
+       }
+
+    </style>
+    
+    <script>
+        let menuParent = document.getElementById('menu'); // Dom đến id có tên là menu
+        let title = menuParent.querySelector('.title'); // Dom phần tử title đầu tiên
+
+        title.onclick = function(){
+            menu.classList.toggle('open'); // elem.classList.toggle('class') thêm một lớp nó không tồn tại, nếu không thì lại bỏ nó
+        }
+    </script>
+</body>
+</html>

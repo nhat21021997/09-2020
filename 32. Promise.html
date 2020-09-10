@@ -1,0 +1,32 @@
+<script>
+    let promise = new Promise((resolve, reject) =>{
+        //function sẽ thông qua new Promise để thực thi func, và khi new  Promise được tạo thì nó sẽ tự đông chạy mã. 
+        // resolve(value), nếu cuộc gọi hoàn thành nó sẽ trả về một giá trị
+        // reject(err), Nếu một ỗi xảy ra. đòa là một đối tượng lỗi
+
+    });
+
+    //Then
+    let promise1 = new Promise((resolve, reject)=>{
+        setTimeout(() => resolve('Done'), 2000);
+    });
+    promise1.then(
+        ketqua => console.log(ketqua),
+        err => console.log(err), // dont run
+    );
+    // catch(f) giốngnhư then(null, f);
+    // VIết lại promise bằng func 
+    function loadScript(src){
+        return new Promise((resolve, reject)=>{
+            let script = document.createElement('script');
+            script.src = src;
+            script.onload = () =>{resolve(script)};
+            script.onerror = () => reject(new Error('Xay ra mot loi'));
+            document.head.append(script);
+        });
+    }
+    let promise2 = loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js');
+    promise2.then(result => console.log(result.src), err => console.log(`Error: ${err.message}`));
+    promise2.finally(f => console.log('Ok'));
+
+</script>

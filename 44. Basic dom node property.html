@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Cái gốc cao nhất của cấp bậc là EventTarget,nó thừa kế từ node và nhiều dom node thừa kế từ nó
+        //1. innerHTML: nội dung , cho phép có được element bên trong HTML gióng như string
+        //Chúng ta cũng có thể sửa đổi nó, vì vậy nó là cách tốt nhất để thay đổi trang
+        console.dir(document.body.innerHTML);// đọc nội dung hiện tại
+        document.body.innerHTML = 'OK';
+        // document.body.createElement = 'p';
+        // document.append(p);
+        document.body.innerHTML = '<b>Test';
+    </script>
+    <div class="ok">
+        <p>8a</p>
+        <!-- comment -->
+    </div>
+    <script>
+        // nodeValue/ data
+        let value1 = document.querySelector('.ok');
+        console.log(value1);
+        let pContent =  value1.firstChild;
+        console.log(pContent.data);
+        let cmt = pContent.nextSibling;
+        console.log(cmt)
+    </script>
+    <p hidden>ok</p>
+    <div id="dsnone">Ok</div>
+    <script>
+        //textContent Văn bản thuần túy
+        //hidden: giống như display none, nhưng nó ngắn hơn, 
+        dsnone.hidden = true;
+        //Tạo chữ nhấp nháy
+        let elems = document.getElementById('dsnone');
+        setInterval(() => {
+            elems.hidden = !elems.hidden
+        }, 100);
+
+        //2. More property
+        // vaulue giá trị của <input> <select> <textarea> 
+        // Href dùng cho HTMLAnchorElement (a href ="")
+        // id giá trị của id cho all HTML element
+    </script>
+    <input type="text" id="inputId" value="val">
+    <script>
+        console.log(inputId.id + inputId.type + inputId.value)
+    </script>
+    <ul id="ulList">
+        <li>
+            Animals
+            <ul>
+                <li>
+                    Mammals
+                    <ul>
+                        <li>Cows</li>
+                        <li>Donkeys</li>
+                        <li>Dogs</li>
+                        <li>Tigers</li>
+                    </ul>
+                </li>
+                <li>Other
+                    <ul>
+                        <li>Snakes</li>
+                        <li>Birds</li>
+                        <li>Lizards</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Fishes
+            <ul>
+                <li>Aquarium
+                    <ul>
+                        <li>Guppy</li>
+                        <li>Angelfish</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li>Sea
+                    <ul><li>Sea trout</li></ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <script>
+        //dùng vòng lặp hiện thị ra tên của phần tử cha và số lượng các phần tử con
+        let li =  document.querySelectorAll('li');
+        console.log(li);
+        for(let val of li){
+           if(val.getElementsByTagName('li').length != 0){
+            console.log(val.firstChild.data.trim() + val.getElementsByTagName('li').length);
+           }
+        }
+    </script>
+</body>
+</html>

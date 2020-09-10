@@ -1,0 +1,63 @@
+<script>
+    /*
+        super.method() Để gọi một phương thức cha 
+        super() Gọi constructor cha mẹ. 
+        Arrow function ko có super
+        Một class được extends đến một class khác sẽ không có constructor, Muốn sử dụng nó chúng ta cần phải có super
+
+    */
+   class Animal{
+    constructor(name){
+        this.speed = 0;
+        this.name = name;
+    }
+    run(speed){
+        this.speed = speed;
+        console.log( this.name + ' Co toc do la ' + this.speed);
+    }
+    stop(){
+        this.speed = 0;
+        console.log(this.name + ' Da dung lai');
+    }
+   }
+   let animal = new Animal('Rua');
+   class Rabiit extends Animal{
+       hide(){
+            console.log('Rabit da bi an!')
+       }
+       stop(){
+           super.stop(); //Gọi cha của stop
+           this.hide(); // và sau đó là hide
+       }
+   }
+   let rabit = new Rabiit('Chuot');
+   rabit.run(3); //Chuot co toc do la 3; 
+   rabit.stop(); // Chuot da dung lai. Rabit da bi an!
+
+   //Arrow function không có super
+   class Result extends Animal{
+       stop(){
+           setTimeout(() => super.stop(), 1000); // Gọi đến parent của stop sau 1s // Ok da dung lại
+           //setTimeout(function() { super.stop() }, 1000); //Uncaught SyntaxError: 'super' keyword unexpected here
+       }
+   }
+   let result = new Result('Ok');
+   result.stop();
+   // super
+   class Who{
+       constructor (name){
+           this.speed = 0;
+           this.name = name;
+       }
+
+   }
+   class Girl extends Who{
+       constructor (name, weights){
+        super(name); // super phải viết trên this
+        this.weights = weights;
+       }
+   }
+   let girl = new Girl('Em', 10);
+   console.log(girl.name + ' : ' + girl.weights)
+   //
+</script>

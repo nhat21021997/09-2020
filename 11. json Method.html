@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json Method</title>
+</head>
+<body>
+    <script>
+        /*******************************************
+            JSON.Stringify chuyển đổi từ object sang json
+            JSON.parse chuyển từ json sang Object
+            Cú pháp đầy đủ của stringify: let json = stringify(value[, replacer, space]);
+            - value là một giá trị để endcode
+            - replacer: Thuộc tính của mảng để encode hoặc một function(key, value);
+            - space: Khoảng trống để định dạng 
+        */
+       let object = {
+           name: 'Ten Chính',
+           age: 20, 
+           extra: true,
+           item: ['item1', 'item2'],
+           size: {
+               height: w = 20,
+               width: h = 20
+           }
+       };
+       let json = JSON.stringify(object);
+       console.log(json);
+       /*
+       {
+           "name":"Ten Chính",
+           "age":20,
+           "extra":true,
+           "item":["item1","item2"],
+           "size":{"height":20,"width":20}
+        } Chuyển từ obj -> json : dấu '' -> """, age: 20 -> "age": 20
+       */
+
+       // Json không có định dạng date, nên cần phải convert nó qua kiểu date
+       let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+       let jsondate = JSON.parse(str);
+       //jsondate.date.getDate(); // sinh ra một lỗi
+       // Chuyển đổi nó qua date
+       let cvjson = JSON.parse(str, function(key, value){
+           if(key == 'date'){
+               return new Date(value);
+           }
+           return value;
+       });
+       console.log(cvjson.date.getDate()); // 30 
+       let schedule = `{
+            "meetups": [
+                {"title":"Conference","date":"2017-11-30T12:00:00.000Z"},
+                {"title":"Birthday","date":"2017-04-18T12:00:00.000Z"}
+            ]
+            }`; // câu lệnh trên hoạc động với cả đối tượng lồng nhau.
+        let nested = JSON.parse(schedule, function(key, value){
+            if(key == 'date'){
+                return new Date(value);
+            }
+            return value;
+        });
+        console.log(nested.meetups[0]); // meetups = [{title}, {}]
+    </script>
+</body>
+</html>

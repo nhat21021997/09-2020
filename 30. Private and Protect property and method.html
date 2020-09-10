@@ -1,0 +1,57 @@
+<script>
+    class CoffeMachine{
+        waterMount = 0;
+        constructor(power){
+            this.power = power;
+            console.log(power + "da duoc tao thanh cong");
+        }
+    }
+    let coffe = new CoffeMachine(100);
+    coffe.waterMount = 200;
+
+    //Bảo vệ thuộc tính sử dụng _  viết ctrinh nếu giá trị nhỏ hơn 0 thông báo lỗi chưa có nước
+    class AmsieuToc{
+        _mucnuoc = 0;
+        set kiemtranuoc(value){
+            if(value < 0) throw new Error("Am chua co nuoc, He thong tu ngat dien");
+            this._mucnuoc  = value;
+        }
+        get kiemtranuoc(){
+            return this._mucnuoc;
+        }
+        constructor(power){
+            this._power = power;
+        }
+    }
+    //tao phuong thuc
+    let run = new AmsieuToc(100);
+
+    //Thay vì viet get và set thì có thể viết như thế này. 
+    class AmsieuToc1{
+        _mucnuoc = 0;
+        setKiemtranuoc(value){
+            if(value < 0) throw new Error('Am chua co nuoc');
+            this._mucnuoc = value;
+        }
+        getKiemtranuoc(){
+            return this._mucnuoc;
+        }
+    }
+    new AmsieuToc1.setKiemtranuoc(100);
+    // them nuoc
+    //run.kiemtranuoc = -20; // set gia tri duong se ko co loi
+
+    // Muốn một thuộc tính không bao giờ thay đổi, Chỉ cần tạo getter, không cần tạo setter. 
+    class Only{
+        constructor(power){
+            this._power = power;
+        }
+        get mucnuoc(){
+            return this._power;
+        }
+    }
+    let powerOnly = new Only(100);
+    console.log(powerOnly.mucnuoc);
+    powerOnly.mucnuoc = 30;
+    // Trong tương lai thêm # + biến sẽ đại diện cho private và nó ko thể truy cập vào từ bên ngoài
+</script>

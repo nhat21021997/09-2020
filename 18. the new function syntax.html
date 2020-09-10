@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**********************************
+            new Function: Viết hoa chữ cái đầu,
+            new Func nàm trong khối mã {} nó sẽ không dùng được bên ngoài, func regular
+            lại làm được điều đó.
+
+        */
+        //New func
+        let func = new Function('consonle.log("hell")');
+        func();
+        // so sánh sự khác nhau giữa function và new Function
+        function name(){
+            let func = new Function()
+        }
+    </script>
+</body>
+</html>

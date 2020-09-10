@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow function</title>
+</head>
+<body>
+    <script>
+        /*****************************************
+            Arrow function không có this.
+            Array func không có new
+            Bind vs arr func khác nhau là: bind tạo ra ràng buộc với func, còn arrow func không có this nên lấy this từ môi trường bên ngoài một cách tự nhiên
+
+        */
+        let user = {
+            name: 'John',
+            sayHi(name){
+                let arr = (name) => {
+                    console.log('hello ' + this.name);
+                }
+                arr();
+            }
+        }
+        user.sayHi('Miz'); //John
+        // Trong func vong lap forEach su dung arrFunc để lấy giá trị bên ngoài.
+        let learnTrai = {
+            loichao: 'Xin Chào',
+            doituong: ['A', 'B', 'C'],
+            chao(){
+                this.doituong.forEach((ten) => {
+                    console.log(this.loichao + ' : ' + ten)
+                }); // nếu không sử dụng this.loichao, ở đây sẽ sinh ra 1 lỗi, vì lời chào chưa khai báo trong func
+            }
+        }
+        learnTrai.chao();
+
+        //
+        function refer(f, ms){
+            return function(){
+                setTimeout(()=> {f.apply(this, arguments)}, ms)
+            }
+        }
+        function sayHi(who){
+            console.log(who);
+        }
+        // let bugsay = sayHi.apply(this, arguments);
+        // console.log(bugsay);
+        let sayHiDefer = refer(sayHi, 2000);
+        sayHiDefer('A sau 2s');
+        //
+        function defer1(f, ms) {
+        return function(...args) {
+            let ctx = this;
+            setTimeout(function() {
+            return f.apply(ctx, args); // tìm hiểu sau
+            }, ms);
+        };
+        }
+    </script>
+</body>
+</html>

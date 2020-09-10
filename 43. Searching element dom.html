@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="elem">Test ID</div><!--  Phải để nó ở trên script mới chạy được -->
+    <script>
+        //1. Document.getElementById hoặc Just Id
+        //Id phải là duy nhất, không sử dụng các biến có tên toàn cục để đặt cùng tên với id
+        // nếu một phần tử có thuộc tính id, sử dụng document.getElementById(id) không quan trọng là nó ở đâu . 
+        let id = document.getElementById('elem');
+        id.style.color = 'red';
+    </script>
+    <ul class="underList">
+        <li>1</li>
+        <li>2</li>
+    </ul>
+    <ul class="underList">
+        <li class="li">2</li>
+        <li>4</li>
+    </ul>
+    <script>
+        2.// elem.querySelectorAll(css), trả về tất cả các elem bên trong phù hợp với css selector
+        let duyet = document.querySelectorAll('.underList > li:last-child');
+        for(let elem of duyet){
+            console.log(elem.innerHTML);
+        }
+        //Có thể sử dụng pseudo class , 
+        //sử dụng querySelector để trả lại phần tử đầu tiền của css
+        //elem.querySelector(css) nó giống như elem.querySelectorAll(css)[0], nhưng ngắn gọn hơn
+    </script>
+    <a href="http://example.com/file.zip">...</a>
+    <a href="http://ya.ru">...</a>
+    <script>
+        //Match không tìm kiếm bất cứ điều gì, mà nó check xem điều kiện đúng sai, trả về true or flase
+        for(let elem of document.body.children){
+            if(elem.matches('a[href $= "zip"]')){
+                console.log('link da duoc tim thay: ' + elem.href)
+            }
+        }
+    </script>
+    <div id="test"></div>
+    <!-- firstDIV -->
+    <script>
+        //elem.closest(css) tìm tổ tiên gần nhất của css. 
+        let chaper = document.querySelector('li');
+        console.log(chaper.closest('.underList'));
+        //getElementsBy*() trả về bộ sưu tập động, nghĩa là sau khi thêm phần tử thì nó sẽ được update tự động. 
+        //QuerySelectorAll trả về bộ sưu tập tĩnh
+        let divs = document.getElementsByTagName('div');
+        let div = document.querySelectorAll('div');
+        console.log(divs.length) //2
+        console.log(div.length) //2
+    </script>
+    <div id="test"></div>
+    <!-- second div -->
+    
+</body>
+</html>

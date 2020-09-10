@@ -1,0 +1,73 @@
+<script>
+    //Static method sử dụng liên quan đến database dùng tìm kiếm, sửa, xóa entries từ database
+    //------------ví dụ sắp sếp title theo date
+   class BaiViet{
+       constructor(title, date){
+           this.date = date;
+           this.title = title;
+       }
+       static sosanh(a, b){
+           return a.date - b.date;
+       }
+   }
+   let baiviet = [
+       new BaiViet('Bai1', new Date(2020,01,01)),
+        new BaiViet('Bai2', new Date(2021, 01, 01)),
+        new BaiViet("bai 3", new Date(2014, 01, 01)),
+        new BaiViet("Current", new Date()),
+   ]
+   baiviet.sort(BaiViet.sosanh);
+   console.log(baiviet);
+   //Lay ra ngay hien tai
+   class DateNow{
+       constructor(date){
+           this.date = date;
+       }
+       static createTodays(){
+           return new this(new Date());// this chính là DateNow
+       }
+   }
+   let date = DateNow.createTodays();
+   console.log(date);
+
+   // Một bổ sung gần đây
+   class bosung{
+       static Ok = 'Ban da dong y';
+       //bodung.ok ='Ban da dong y';
+   }
+    bosung.ok; //ban da dong y
+   //----------inheritance of static property and method
+   class User{
+       static name = 'Miz';
+       constructor(name, speed){
+           this.name = name;
+           this.speed = speed;
+       }
+       run(speed = 0){
+           this.speed += speed;
+           console.log(this.name + ' Co toc do la ' + this.speed)
+       }
+       static compare(a, b){
+           return a.speed - b.speed;
+       }
+   }
+   // Tao mang toc do
+   
+
+   // Tao ham admin ke thua tu ham nguoi dung
+   class Admin extends User{
+       hide(){
+           console.log(this.name + 'da bi an');
+       }
+   }
+   let arr1 = [
+   new Admin("Mi", 12),
+   new Admin("Nam", 9),
+   new Admin("Nam", 9),
+   ];
+   arr1.sort(Admin.compare)
+   //Goi toc do ke thua ad vs user
+   console.log(Admin.name);
+   arr1[0].run();
+   
+</script>

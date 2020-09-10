@@ -1,0 +1,53 @@
+<script>
+    // function loadScript(src, callback){
+    //     let script = document.createElement('script');
+    //     script.src = src;
+    //     script.onload = () => callback(script);
+    //     document.head.append(script);
+    // }
+    // loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',(script) => {
+    //     console.log(script.src + 'da duoc tao');
+    //     console.log(_)
+    // })
+    // new Promise((resolve, reject)=>{
+    //     setTimeout(() => resolve('Ket qua'), 2000);
+    // })
+    // .finally(()=> console.log('ket qua finaly'))
+    // .then((result) => console.log(result));
+    // //Một lời hứakhông cần phải xử lý
+    // let promise = new Promise(resolve => resolve('OK'));
+    // promise.then(console.log);
+    //----Nhiều function trong javascript cung cấp môi trường host cho phép lên lịch trình hành động bất đồng bộ. Nói các khác là hành động được tạo bây giờ và hoàn thành muộn hơn.
+    // Cho ví dụ một chức năng là setTimeout Function, Hãy xem một function loadScript(src), mà script đó tải cho src
+    function loadScript(src){
+        let script = document.createElement('script');
+        script.src = src;
+        document.head.append(script);
+    }
+    // nó sẽ nối thêm vào document, và tự động tạo thẻ <script src='' >, và trình duyệt sẽ tự động tải và bắt đầu nó khi hoàn thành. 
+    // Tải và thực thi tập tin với đường dẫn đã cho
+        // loadScript('./function/test.js');
+    // script là thực thi bất đồng bộ, Nó bắt đầu tải bây giờ nhưng chạy muộn hơn. Khi chức năng đã hoàn thành. 
+    // Nếu có 1 đoạn mã bên dưới script nó sẽ không đợi script tải hết, 
+    // Bây giờ thêm một đối số thứ 2 là callBack, nó sẽ thực thi khi lệnh tải
+    function loadScript2(src, callBack){
+        let script = document.createElement('script');
+        script.src = src;
+        script.onload= () => callBack(null, script);
+        script.onerror = () => {callBack( new Error(`Link dẫn ${script} không tồn tại`))}
+        document.head.append(script);
+    }
+    // bây giờ muốn tạo một function mới chúng ta cần viết trong callBack, 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',script =>{
+        console.log(script.src);
+        console.log(_);
+    });
+    //làm thế nào mà chúng ta load được 2 script cùng một lúc, các đơn giản nhất là chúng ta gọi lại nó trong callBack. 
+    loadScript2('/odash.js', (err, script) => {
+       if(!err){
+        console.log(script );
+       }else{
+        console.log(err);
+       }
+    })
+</script>

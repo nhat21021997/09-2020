@@ -1,0 +1,52 @@
+<script>
+    new Promise((resolve, reject)=>{
+        setTimeout(()=> {resolve(1)}, 1000)
+    })
+    .then((result) => {console.log(result); return result*2}) // 1
+    .then((result) => {console.log(result); return result*2}) // 2
+    .then((result) => {console.log(result); return result*2}) // 4
+    .then((result) => {console.log(result); return result*2}) // 8
+
+    // Returning Promise
+    //Một handler, sử dụng trong .then(handler) nó sẽ tạo mới và trả về một promise
+    new Promise( (resolve, reject) => {
+        setTimeout( () => resolve(3), 3000);
+    })
+    .then(result =>{
+        console.log(result);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(result *2));
+        })
+    })
+    .then(result =>{
+        console.log(result);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(result *2));
+        })
+    })
+    .then((result)=>{
+        console.log(result); // 12
+    });
+
+    // ThenAble
+    class thenAble{
+        constructor(num){
+            this.num = num;
+        }
+        then(resolve, reject){
+            setTimeout(() => resolve(this.num * 2), 2000);
+        }
+    }
+    new Promise( (resolve, reject) =>{
+        resolve(2)
+    })
+    .then(result => {return new thenAble(result)})
+    .then(result => {
+        console.log('ket qua ' + result)
+    });
+    // Trong lập trình frontend promise được sử dụng cho các yêu cầu Network
+    // sử dụng fetch để load thông tin của user từ phía server, nó có nhiều lựa chọn nhưng cú pháp khá đơn giản
+    let promisex =  fetch(url);
+    
+
+</script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable scope</title>
+</head>
+<body>
+    <script>
+        /*****************************************
+            Biến được khái bảo trong khối mã {} sẽ không thể sử dụng bên ngoài,
+            Một biến không thể khai báo 2 lần. 
+            Closure: là một chức năng ghi nhớ mà biến bên ngoài có thể truy cập nó.
+            Khi phỏng vấn câu trả lời hợp lệ là: Định nghĩa closure, và tất cả các
+            chức năng trong javascript đều là closure.
+        */ 
+       {
+           let test = 'hello';
+           console.log(test);
+       }
+       //console.log(test); // error
+       //---- Func lồng nhau.
+       function nestedFunc(){
+           let count = 0;
+           return function make(){
+               return count++;
+           }
+       }
+       let counter = nestedFunc();
+       console.log(counter());
+       console.log(counter()); // nếu chạy nestedFunc()(); kết quả chỉ cho rả = 0
+       //--
+    </script>
+</body>
+</html>

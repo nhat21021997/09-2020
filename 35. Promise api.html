@@ -1,0 +1,44 @@
+<script>
+    //Promise.all : chúng ta muốn thực hiện tất cả các promise song song, và đợi cho đến khi tất cả chúng đã sẵn sàng. 
+    //Promise.all sẽ lấy tất cả các promise trong mảng và trả về một promise mới, 
+    //Trong ví dụ bên dưới chúng sẽ giải quyết tất cả kết quả và trả về một mảng là [1, 2, 3]
+    // Promise.all([
+    //     new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
+    //     new Promise( (resolve, reject) => setTimeout( () => resolve(2), 2000)),
+    //     new Promise( (resolve, reject) => setTimeout(resolve(2)), 1000),
+    // ])
+    // .then(console.log);
+    //Kết quả trả về mảng từ promise.all theo thứ tự viết của nó
+    //mẹo phổ biến chuyển đổi từ array map về promise
+    // let arr = [
+    //     'https://api.github.com/users/iliakan',
+    //     'https://api.github.com/users/remy',
+    //     'https://api.github.com/users/jeresig'
+    //     ];
+
+    // let request = arr.map(url => fetch(url));
+    // Promise.all(request)
+    // .then(result => result.forEach(result => console.log(result.url + result.status)))
+
+    //Lấy tất cả các thông tin của user trên github bởi user name.
+    let user = ['iliakan', 'remy', 'jeresig'];
+    let requestUser =  user.map(name => fetch(`https://api.github.com/users/${name}`));
+    //Chạy với promise giải quyết mạng từ server
+    Promise.all(requestUser)
+    .then(result => 
+        {
+            for(let value of result){
+                console.log(value.url + ' _ ' + value.status)
+            }
+            console.log(result);
+            return result;
+            
+        } 
+    )
+    
+    .then(result => Promise.all(result.map(f => f.json())))
+    .then(result => result.forEach(user => console.log(user.avatar_url)));
+
+    // Từ chối tất cả nếu một lời hứa bị từ chối sử dụng Promise.allSettled
+    //
+</script>

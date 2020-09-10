@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //DOM  property 
+        // recognize standard và non - standard
+        // Một thuộc tính non-standard sẽ không có thuộc tính DOM cho nó. Cách truy cập thuộc tính cho nó: 
+        // Tất cả các phương thức đều có thể truy cập thuộc tính bằng phương thức bên dưới: 
+        // 1. elem.hasAttribute(name); kiểm tra một sự tồn tại
+        // 2. elem.getAttribute(name); lấy một giá trị
+        // 3. elem.setAttribute(name, value); sets giá trị, 
+        // 4. elem.removeAttribute(name); xóa một attribute
+        // HTML attribute có các thuộc tính sau
+        // Không phân biệt hoa hay thường(id giống ID)
+        // Giá trị của họ luôn là String
+        // Chúng ta có thể gán mọi thứ cho abttribute, nhưng kết quả đều trả về một string
+        // attributes : là thuộc tính để hiện thị tất cả các vòng lặp
+        // A. Property - attribute synchronization
+        //  Khi mà abtribute thông thường được thay đổi, Property sẽ tự động được cập nhật, và ngược lại
+        //
+        document.body.myData ={
+            name: 'Van',
+            title: 'Chu Thich'
+        }
+        console.log(document.body.myData.title);
+        // Một  phương thức khác. 
+        document.body.sayTagName =  function(){
+            console.log(this.tagName);
+        }
+        document.body.sayTagName()
+        // DOM property và method behava cũng giống như object
+    </script>
+    <input type="text">
+    <script>
+        //Property - attribute synchronization
+        //Khi mà abtribute thông thường được thay đổi, Property sẽ tự động được cập nhật, và ngược lại 
+        // Trong ví dụ bên dưới id sẽ sửa một attribute, và property cũng thay đổi theo nó . 
+        let input = document.querySelector('input');
+        // attribute => property
+        input.setAttribute('id', 'id');
+        // property => attribute
+        input.id = 'newId';
+        console.log(input.getAttribute('id'));
+
+        // Nhưng có một ngoại lệ, input.value chỉ đồng bộ hóa thuộc tính attribute -> Property, but not back;
+        // attribute -> property
+        input.setAttribute('value', 'Text');
+        // not property -> attribute
+        input.value = 'text1';
+        console.log(input.getAttribute('value'));
+        // Trong ví dụ trên attribute là mảnh hưởng đến property, nhưng property lại không làm được điều đó. 
+    </script>
+    <input type="checkbox" id="input1" checked> <i>checkbox</i>
+    <div id="styleDiv" style="font-size: 11px; color: aqua">Hello</div>
+    <a href="#home" id="link">Trang chu</a>
+    <script>
+        //1. DOM property are typed
+        // Thuộc tính DOM property không phải lúc nào cũng là chuỗi. Trong ví dụ input.checkd property là  một boolean. 
+        console.log(input1.getAttribute('checked')); // empty string, hiện ra 1 khoảng trắng
+        console.log(input1.checked);
+        // Có một ví dụ khác type attribute là một string, nhưng style property lại là một đối tượng
+        //string
+        console.log(styleDiv.getAttribute('style'));
+        console.log(styleDiv.style); // Object CssStyleDeralection
+        console.log(styleDiv.style.color); // aqua
+        // Trong thẻ liên kết chúng lại khác khác từ attribute, trong ví dụ href property luôn trả về full URL, còn attribute trả về một string
+        // get property
+        console.log(link.href); // full url: http://127.0.0.1:5500/45.%20Dom%20attribute%20and%20property.html#home
+        // get attribute
+        console.log(link.getAttribute('href')); // #home -> kết quả là một string
+
+    </script>
+    <div show-info="name"></div>
+    <div show-info='age'></div>
+    <script>
+        // Non-Standard attribute, dataset
+        // Khi viết HTML họ thường sử dụng nhiều standard attribute, Nhưng về non-standard những cái tùy chỉnh,
+        // Non-standard attribute sử dụng thông qua chuyển đổi dữ liệu từ HTML-> javascript, hoặc đánh dấu element của js
+        //
+        let user = {
+            name: 'Pette',
+            age: 20
+        };
+        for(let div of document.querySelectorAll('[show-info]')){
+            let field = div.getAttribute('show-info');
+            console.log(field); // name, age
+            div.innerHTML = user[field];
+        }
+        // Cũng sử dụng để style element, nhưng tại sao lại sử dụng order[order-state="new"] thay vì class, vì chúng dễ dàng để quản lý
+        //cũng đơn giản hơn để loại bỏ một thuộc tính cũ, va add một thuộc tính mới
+        
+
+    </script>
+    <style>
+        /* styles rely on the custom attribute "order-state" */
+        .order[order-state="new"] {
+          color: red;
+        }
+      </style>
+      <div class="order" id="divstate" order-state="new">
+        A new order.
+      </div>
+      <div id="ok" data-about-name='elephent'></div>
+      <script>
+          //divstate.setAttribute('order-state', 'cancel');
+          // Khi sử dụng để tránh xung đột, người ta thêm chuẩn chung là data-* vào tên các non-standard, và nó có sẵn trong dataset Property
+          //trong ví dụ một elem có sẵn attribute name 'data-about', nó là có sẵn trong elem.dataset.about
+        console.log(document.ok.dataset.aboutName);
+      </script>
+      //
+      <div data-widget-name="menu">Choose the genre</div>
+
+      <script>
+        /* your code */
+        let read = document.querySelector('[data-widget-name]'); // querySelector() trả về phần tử đầu tiên được tìm thấy, querySelectorAll(css) trả về các bộ sưu tập được tìm thấy dưới dạng nodeList
+        console.log(read);
+        let readProperty = read.getAttribute('data-widget-name');
+        console.log(readProperty);
+        console.log(read.dataset.widgetName);
+      </script>
+
+        <a name="list">the list</a>
+        <ul>
+            <li><a href="http://google.com">http://google.com</a></li>
+            <li><a href="/tutorial">/tutorial.html</a></li>
+            <li><a href="local/path">local/path</a></li>
+            <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+            <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+            <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+        </ul>
+        <script>
+            //làm cho các link bên ngoài có màu cam
+            let links = document.querySelectorAll('a');
+            for(let link of links){
+                let href = link.getAttribute('href');
+                if(!href) continue; // no attribute
+                if(!href.includes('://')) continue; // no protocol
+                if(href.startsWith('http://internal.com')) continue;
+                link.style.color = 'red';
+            }
+
+                // look for all links that have :// in href
+            // but href doesn't start with http://internal.com
+            // let selector = 'a[href*="://"]:not([href^="http://internal.com"])';
+            // let links = document.querySelectorAll(selector);
+
+            // links.forEach(link => link.style.color = 'orange');
+        </script>
+</body>
+</html>

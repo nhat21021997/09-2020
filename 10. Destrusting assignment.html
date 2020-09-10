@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destrusting Assignment</title>
+</head>
+<body>
+    <script>
+        /***********************************************************
+            Có 2 loại dữ liệu có cấu trúc: Object và Array
+            Object được tạo bằng một thực thể duy nhất để lưu trữ dữ liệu bởi key
+            -Phương thức let [] = arr;
+        */
+        //----------------
+        let arr = ['Nhat', 'Nguyen'];
+        let [firstName, lastName] = arr;
+        console.log(firstName); // Nhat
+        // Một cách sử dụng tuyệt vời hơn
+        let [fName, lName] = 'Nhat Nguyen'.split(' ');
+        console.log(fName);
+        // Yếu tố dấu phẩy thừa hoặc trống sẽ được bỏ qua
+        let arrayT = ['2', '3', '4', '5'];
+        //---------------assign có thể gán mọi thứ từ trái qua phải
+        let user = {};
+        [user.name, user.surname] = 'Cho anh'.split(' ');
+        console.log(user); // Object{name: "Cho", surname: "anh"}
+        //------------ Vòng lặp đối tượng với entries() 
+        for(let [key, value] of Object.entries(user)){
+            console.log(key + ': ' + value);
+        }
+        //bên trên giống như map
+        let map = new Map();
+        map.set('name', 'John');
+        map.set('age', '20');
+
+        for(let [key, value] of map){
+            console.log(key + ': ' + value); // name: John, age: 20
+        }
+        //--------------- The ress: Dùng để lấy nhiều hơn 1 phần tử vào mảng
+        let [name, surname, ...number] = ['Nhat', 'Van', '1', '2', '3'];
+        console.log(number[1]); // 2
+
+        // Giá trị của mảng nhập từ bên ngoài;
+       // let [subname = prompt('subname?')] = [];
+        //---------------- Object destructurning
+        let fuser = {
+            nameF: 'A',
+            ageF : 20,
+        };
+        let {nameF, ageF} = fuser; // target nameF: n, agef: a
+        console.log(nameF); // A   // Console.log(n)
+        //------------Nested destructurning
+        // let {
+        //     size: {width, heght},
+        //     item : [item1, item2],
+        //     title = 'options',
+        //     extra = true,
+        // } = options;
+
+        //------ Nested function
+        let obj = {
+            title: 'index',
+            item: ['item1', 'item2']
+        };
+        function showMenu({
+            title,
+            width: w = '200',
+            item = [],
+        }){
+            console.log(title +  w + item);
+        }
+        showMenu(obj); // showMenu({}), chạy tất cả các giá trị default
+    </script>
+</body>
+</html>

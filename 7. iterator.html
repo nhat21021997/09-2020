@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iterator</title>
+</head>
+<body>
+    <script>
+        /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+           String là một iterator sử dụng for of  
+           Object mà có thứ tự như mảng gọi là Array-Like, Để làm việc được như mảng dùng Array.from();
+           Array.from() biến một chuỗi ký tự thành một mảng, Không giống như split mà như for of. 
+
+
+        */
+        //---------------------
+        let str = '123456';
+        for(let key of str){
+            console.log(key); // 1,2,3,4,5,6
+            console.log(str[key]); //2,3,4,5,6
+        }
+
+        let arrLike = {
+            1 : 'Ann',
+            2 : 'Bun',
+            3 : 'Cun',
+            length: 3
+        };
+        let arr = Array.from(arrLike); // đưa phần tử về mảng
+        let them = arr.pop(); 
+        // console.log(arr)
+        //--------------------- Array.from() string to array giống for of .
+        let strToArr = Array.from(str);
+        console.log(strToArr); // [1,2,3,4,5,6]
+        // for(let key of str){
+        //     console.log(key); 
+        // }
+        //--------------------- Tách chuỗi đặc biệt
+        let chars = '𝒳😂𩷶';
+        let arrAlike = Array.from(chars); // giống {1: 𝒳, 2: 😂, 3: 𩷶, length: 3}
+        let emoij = arrAlike.slice(1, 2); // lấy mặt cười từ vị trí 1 đến 2 mà k tính 2, 
+        console.log(emoij);// laf 1 mảng
+        let stringEmoij = emoij.join('');
+        console.log(stringEmoij); 
+        // tạo một function tách chuỗi
+        function tach(str, start, end){
+            return Array.from(str).slice(start, end).join('');
+        }
+        let runfunc = tach(chars, 2, 3);
+        console.log(runfunc); 
+        //---------------------
+    </script>
+</body>
+</html>

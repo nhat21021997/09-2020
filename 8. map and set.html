@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map and Set</title>
+</head>
+<body>
+    <script>
+        /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            Object dùng để lưu trữ các thuộc tính khóa, Array lưu trũ các phần tử có thứ tự.
+            Nhưng nó không đáp ứng cho cuộc sống thực, nên Map và Set ra đời
+            new Map(): Tạo một map
+            map.set(key, value) lưu trữ value bởi giá trị key
+            map.get(key); Trả về giá trị bởi key, undefined nếu key không tồn tại
+            map.has(key); trả về true nếu key tồn tại
+            map.delete(key); Xóa một giá trị bởi key,
+            map.clear(); xóa mọi thứ khỏi map
+            map.size(); trả về số lượng phần tử hiện tại. 
+            Để lưu trữ key đối tượng dùng weakMap(obj, value)
+
+        */
+        let map = new Map();
+
+        map.set('1', 'str1')   // a string key
+        map.set(1, 'num1');     // a numeric key
+        map.set(true, 'bool1'); // a boolean key
+
+        // remember the regular Object? it would convert keys to string
+        // Map keeps the type, so these two are different:
+        console.log( map.get(1)   ); // 'num1'
+        console.log( map.get('1') ); // 'str1'
+
+        console.log( map.size ); // 3
+
+        //------------iterator use map
+        let recipiMap = new Map([
+            ['buoi', 2],
+            ['tao', 3],
+            ['cam', 8]
+        ]);
+        for(let key of recipiMap.keys()){
+            console.log(key) // buoi, tao , cam
+        }
+        for(let key of recipiMap.values()){
+            console.log(key); //2,3,8
+        }
+        for(let key of recipiMap){
+            console.log(key); // [buoi, 2], [tao, 3], [cam, 4]
+        }
+        //----------- iterator over Set
+        let set = new Set(['b', 'c', 'd']);
+        for(let value of set){
+            console.log(value); // b, c, d
+        }
+        //----------- WeakMap and WeakSet
+        let john = {name: 'John'};
+        let arrRe = [john];
+        john = null;
+        // truy cập john  bằng mảng vấn được
+        let acces = arrRe[0];
+        console.log(acces); //{name: 'John'}
+        //----------- Chọn đối tượng làm key, sử dụng weakMap();
+        let weakMap = new weakMap();
+        let obj = {};
+        weakMap.set(obj, '100');
+        
+
+    </script>
+</body>
+</html>

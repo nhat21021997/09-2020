@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+<body>
+    <script>
+        /* **************************************
+            Recursion là tự sao chép lại chính nó trong các phần
+            Linked list dùng để thay thế cho mảng, vì việc thêm hoặc xóa phần tử ở cuối gây chậm
+            
+            */
+        // tạo phép lũy thừa
+        function pow(x, n){
+            if(n == 1){
+                return x;
+            }else{{
+                return x*pow(x, n-1);
+            }}
+        }
+        console.log(pow(2, 3))
+        //-------
+        let company = {
+            leader : [{name: 'a', salary: 100}, {name: 'b', salary: 120}],
+            department : {
+                site: [{name: 'c', salary: 10}, {name: 'd', salary: 12}]
+            }
+        };
+        //
+        
+        function sumSalary(dept){
+            if(Array.isArray(dept)){
+                return dept.reduce((acc, arr) => acc + arr.salary, 0);
+            }else{
+                let sum = 0;
+                for(let subdept  of Object.values(dept)){
+                    sum += sumSalary(subdept); //Nó gọi lại chính nó ở trong này
+                }
+                return sum;
+            }
+        };
+
+        console.log(sumSalary(company));
+        // Diễn giải: Tạo lệnh func sumSalary, Nhận thấy bên trong compay có các mảng đối tượng.
+        // Đầu tiên kiểm tra company có phải là một mảng không, nếu không
+        // sử dụng Object.values(obj) lấy giá trị bên trong ob.
+        // gán sum = đệ quy của giá trị bên trong và chạy lại từ đầu
+        // reduce làm nhiệm vụ tính các giá trị từ mảng đối tượng
+
+        //---------------------------------- Linked list
+        let linkarr = [obj1, obj2, obj3];
+        
+
+    </script>
+</body>
+</html>

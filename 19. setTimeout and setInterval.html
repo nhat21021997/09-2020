@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //lịch trình cuộc gọi
+        //let timeId = setTimeout(func | code, [delay], [arg1], [arg2],);
+        // [delay] là thời gian trễ trước khi chạy, đơn vị miliseconds. và nó chạy cứ 5s một lần, để dừng nó ta dùng clearTimeout
+        function time(){
+            console.log("delay 5s")
+        }
+        setTimeout(time, 5000);
+        //để hủy bỏ lịch trình clearTimeout(func);
+        clearTimeout(time);
+        // Code bên dưới sẽ chạy thông báo mỗi 2s và sau 5s thì nó dừng lại
+        let timeId = setInterval(() => {
+            console.log(1)
+        }, 2000);
+        setTimeout(() => {
+            clearInterval(timeId);
+            console.log('Stop')
+        }, 5000);
+        // setTimeout Lồng nhau, sử dụng linh hoạt hơn setInterval.
+        //let timeId12 = setInterval(()=> {console.log('TimeInterval')}, 2000);
+        let timeId1 = setTimeout(function tich() {
+            console.log('nested Timeout');
+            timeId1 = setTimeout(tich, 1000);
+            clearTimeout(timeId1); //Giống setInterval
+        }, 500);
+        // Khi gọi nó sẽ chạy snh ra rác, cho đến khi clear... được gọi.
+        //code tính độ trễ
+        let start = Date.now();
+        let timeTest = [];
+        setTimeout(function getTime(){
+            timeTest.push(Date.now() - start);
+            if(timeTest + 100 < Date.now()){
+                console.log(timeTest);
+            }else{
+                setTimeout(getTime);
+            }
+        }
+        )
+        //
+    </script>
+</body>
+</html>

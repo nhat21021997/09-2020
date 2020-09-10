@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /***
+         * Khi một sự kiện xảy ra trên một elem, đầu tiên nó sẽ xử lý trên nó, sau đó trên cha nó, và sau đó là tất cả các tổ tiên khác. 
+         * event.target: Một xử lý dựa trên phần tử cha luôn có thể nhận thông tin về thực tế xảy ra. 
+         * event.target: là một phần tử "target" khởi tạo sự kiện, nó không làm thay đổi quá trình bubbling process. 
+         * this: là một phần tử "current", cái hiện có và chạy xử lý trên nó. 
+         */
+    </script>
+    <form action="" onclick="alert('form')"> form 
+        <div onclick="alert('div')"> Div 
+            <p onclick="alert('p')">p</p>
+        </div>
+    </form>
+    <script>
+        /** 
+         * Trong ví dụ, nếu xử lý đơn thuần form.click, sau đó nó có thể "catch" toàn bộ inside trong form. Không quan trọng nơi nhấp chuột, nó là bubbles up to <form> và chạy xử lý. 
+         * Xử lý trong form.click: - this(=event.curentTarget) is the <form> element, bởi vì xử lý chạy trên nó, - event.target là phần tử thực tế bên trong <form> được click, 
+         * Stopping Bubbling: Một sự kiện bubbing đi từ phần tử target thẳng lên, thông thường nó đi lên cho đến <html>, và sau đó đến đối tượng "document", và một số sự kiện, thậm chí đạt đến window,
+         * Nhưng bất kỳ xử lý nào cũng có thể quyết định xử lý hoàn toàn và ngừng the bubbling. 
+         * Phương thức cho nó là event.stopPropagation();
+         * 
+        */
+    </script>
+    <div id="divParent"> PHần tử cha
+        <span>Phần tử con
+            <i>Phần tử cháu</i>
+        </span>
+    </div>
+    <script>
+        divParent.onclick = function(e){
+            e.target.style.backgroundColor = 'red';
+            // chrome needs Some time to paint red
+            setTimeout(() => {
+                console.log(" Target = " + e.target.tagName + ", this = " + this.tagName);
+                e.target.style.backgroundColor = 'yellow';
+            }, 2000)
+        };
+    </script>
+    <script>
+        // trong ví dụ body.onclick không làm việc nếu click và <button>
+        /* 
+        Nếu một phần tử có nhiều xử lý trên một sự kiện, thậm chí nếu một trong số chúng ngừng xử lý. Những cái khác vẫn thực hiện. 
+        Nói cách khác, event.stopPropagation() dừng việc di chuyển lên. Nhưng trong cái hiện tại trình xử lý vẫn chạy
+        */
+        
+    </script>
+    <html>
+        <body onclick="alert('Ok')">
+            <button onclick="event.stipPropagation()">Click</button>
+        </body>
+    </html>
+    <script>
+        /** 
+         * Capturing:  
+         * 
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object properties configuration</title>
+</head>
+<body>
+    <script>
+        //Truy vấn thông tin đầy đủ của một tài sản.
+        // let descriptor  = Object.getOwnPropertyDescriptor(obj, propertyName);
+        //Thay đổi nó : Object.defineProperty(obj,propertyName, descriptor);
+
+        // non-writeable
+        let user = { name: 'Miz'};
+        Object.defineProperties(user, "name"){
+            writable: false;
+        }
+        user.name ='haha';
+        console.log(user.name); //err
+    </script>
+</body>
+</html>

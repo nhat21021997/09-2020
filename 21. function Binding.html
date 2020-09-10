@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind</title>
+</head>
+<body>
+    <script>
+        /*****************************
+            Khi thông qua phương thức callback, Ví dụ để setTimeout, có một vấn đề  "Lossing this"
+        */
+        // Ví dụ mất đi this
+        let user = {
+            name: "John",
+            sayHi(){
+                console.log(`hello: ${this.name}`);
+            }
+        };
+        let f = user.sayHi;
+        //setTimeout(user.sayHi, 1000); // Hello: undefined
+        setTimeout(f, 1000); // Hello: undefined
+        // Có một cách để nó chạy là tạo function cho setTimeout để gọi nó từ bên ngoài môi trường
+        setTimeout(()=>{
+            user.sayHi();// hello: John
+        }, 1000)
+        //Syntax : let boundFunc = func.bind(context);
+        let funcUser = {name: 'Miz'};
+        function miz(){
+            console.log(this.name);
+        }
+        let seeUser = miz.bind(funcUser);
+        seeUser();
+        // Có thể ràng buộc bằng đối số được thông qua
+        let func = {
+            name: 'Ok',
+            sayHi(pharse){
+                console.log(pharse + this.name);
+            }
+        };
+        let bindf = func.sayHi.bind(func);
+        bindf('Hello: ');
+        bindf('Bye: ');
+        // bind all 
+        for (let key in user) {
+            if (typeof user[key] == 'function') {
+                user[key] = user[key].bind(user);
+            }
+        }
+        // Partial func (Một phần )
+        function mul(a, b){
+            return a * b;
+        }
+        let mulf = mul.bind(null, 2); // bull như context
+        console.log(mulf(3));
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .highlight{
+            background: #888;
+        }
+        .tree span:hover {
+      font-weight: bold;
+    }
+
+    .tree span {
+      cursor: pointer;
+    }
+    </style>
+    <table id="bagua-table">
+        <tr>
+          <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
+        </tr>
+        <tr>
+          <td class="nw"><strong>Northwest</strong>
+            <br>Metal
+            <br>Silver
+            <br>Elders
+          </td>
+          <td class="n"><strong>North</strong>
+            <br>Water
+            <br>Blue
+            <br>Change
+          </td>
+          <td class="ne"><strong>Northeast</strong>
+            <br>Earth
+            <br>Yellow
+            <br>Direction
+          </td>
+        </tr>
+        <tr>
+          <td class="w"><strong>West</strong>
+            <br>Metal
+            <br>Gold
+            <br>Youth
+          </td>
+          <td class="c"><strong>Center</strong>
+            <br>All
+            <br>Purple
+            <br>Harmony
+          </td>
+          <td class="e"><strong>East</strong>
+            <br>Wood
+            <br>Blue
+            <br>Future
+          </td>
+        </tr>
+        <tr>
+          <td class="sw"><strong>Southwest</strong>
+            <br>Earth
+            <br>Brown
+            <br>Tranquility
+          </td>
+          <td class="s"><strong>South</strong>
+            <br>Fire
+            <br>Orange
+            <br>Fame
+          </td>
+          <td class="se"><strong>Southeast</strong>
+            <br>Wood
+            <br>Green
+            <br>Romance
+          </td>
+        </tr>
+    
+    </table>
+    <script>
+        /** 
+         * Thay vì sử dụng onclick cho mỗi <td> thì chúng ta sử dụng sự kiện event.target cho cả <table> đễ xác định vị trí của con trỏ chuột
+         * 
+         */ 
+    </script>
+    <script>
+        let tabelok = document.getElementById('bagua-table');
+        let selectedTd;
+        tabelok.onclick = function (e){
+          // let target = e.target;// xác định vị trí con trỏ chuột được bấm. 
+          // while(target != this){
+          //   if(target.tagName == 'TD'){
+          //     highlight(target); // bôi phần vị trí bấm
+          //     return;// thoát khỏi vòng lặp while
+          //   }
+          //   target = target.parentNode;
+          // }
+          let td = e.target.closest('td'); // tìm td gần nhất
+          if(!td) return;
+          if(!tabelok.contains(td)) return;
+          highlight(td);
+        }
+        function highlight(node){
+          if(selectedTd){
+            selectedTd.classList.remove('highlight');
+          }
+          selectedTd = node;
+          selectedTd.classList.add('highlight');
+        }
+        
+    </script>
+    <script>
+      /** 
+       * Delagation Example: actions in markup
+       *  Chúng ta muốn làm một thực đơn với 3 nút : Save, Load, Search và hơn thế, 
+       * và có các đối tượng với các phương thức: save, load, search,... làm thế nào để match chúng
+       * Ý tưởng đầu tiên là gán tham số xử lý cho mỗi nút button, Nhưng có một giải pháp thanh lịch hơn, Chúng
+       * ta có thể thêm xử lý cho toàn bộ menu và thuộc tính data-action cho các nút có phương thức để gọi. 
+       * <button data-action="save"> Click to Save</button>
+       * Khi gán một xử lý cho đối tượng document chúng ta luôn sử dụng addEventListener, không phải doccument.on<event>
+       * 
+       * 
+      */ 
+    </script>
+    <button data-thugon-id="subscribe-mail">show mail</button>
+    <form action="" id="subscribe-mail" hidden>
+      your mail: <input type="email">
+    </form>
+    <script>
+      document.addEventListener('click', function(e){
+        let id = e.target.dataset.thugonId; //subscribe-mail
+        console.log(id);
+        if(!id) return;
+        let elem = document.getElementById(id);
+        elem.hidden = !elem.hidden;
+      });
+    </script>
+    <div id="container">
+      <div class="pane">
+        <h3>Horse</h3>
+        <p>today.</p>
+        <button class="remove-button">[x]</button>
+      </div>
+      <div class="pane">
+        <h3>Horse</h3>
+        <p>today.</p>
+        <button class="remove-button">[x]</button>
+      </div>
+      <div class="pane">
+        <h3>Horse</h3>
+        <p>today.</p>
+        <button class="remove-button">[x]</button>
+      </div>
+    </div>
+    <script>
+      container.addEventListener('click', function (e){
+        if(e.target.className != 'remove-button') return;
+        let pane = e.target.closest('.pane');
+        pane.remove();
+      })
+    </script>
+    <ul class="tree" id="tree">
+      <li>Animals
+        <ul>
+          <li>Mammals
+            <ul>
+              <li>Cows</li>
+              <li>Donkeys</li>
+              <li>Dogs</li>
+              <li>Tigers</li>
+            </ul>
+          </li>
+          <li>Other
+            <ul>
+              <li>Snakes</li>
+              <li>Birds</li>
+              <li>Lizards</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Fishes
+        <ul>
+          <li>Aquarium
+            <ul>
+              <li>Guppy</li>
+              <li>Angelfish</li>
+            </ul>
+          </li>
+          <li>Sea
+            <ul>
+              <li>Sea trout</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <script>
+      //move all text into <span>
+      
+      for(let li of tree.querySelectorAll('li')){ // Bộ chọn css đầy đủ
+        let span = document.createElement('span');
+        li.prepend(span); // chèn các nút hoặc chuỗi vào đầu node
+        span.append(span.nextSibling); // move the text node into span
+      }
+      //catch clicks on whole tree
+      tree.onclick = function(event){
+        if(event.target.tagName != 'SPAN') {return;}
+        let childrenContainer = event.target.parentNode.querySelector('ul'); // lấy cái node cho có bộ chọn là ul( parentNode là trỏ đến nút cha của nút hiện tại)
+        console.log(childrenContainer);
+        if(!childrenContainer) return;
+        childrenContainer.hidden = !childrenContainer.hidden;
+      }
+     
+    </script>
+
+<table id="grid">
+  <thead>
+    <tr>
+      <th data-type="number">Age</th>
+      <th data-type="string">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5</td>
+      <td>John</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Pete</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Ann</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Eugene</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Ilya</td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  grid.onclick = function(e){
+    if(e.target.tagName != 'TH') return;
+    let th = e.target;
+    //nếu là th, sau đó sort
+    //cellIndex là the number of th
+    // 0 for the first column 
+    // 1 the second column 
+    sortGrid(th.cellIndex, th.dataset.type);
+  };
+
+  function sortGrid(colNum, type){
+    let tbody = grid.querySelector('tbody');
+    let rowsArray = Array.from(tbody.rows);
+    //compare(a,b) so sánh 2 hàng, cần cho sorting
+    let compare;
+    switch(type){
+      // case 'number': 
+      //   compare = function(rowA, rowB) {
+      //     return rowA.cells[colNum].innerHTMl - rowB.cells[colNum].innerHTMl;
+      //   }; 
+        case 'number':
+          compare = function(rowA, rowB) {
+            return rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML;
+          };
+        break;
+      case 'string':
+        compare = function (rowA, rowB){
+          return rowA.cells[colNum].innerHTMl > rowB.cells[colNum].innerHTMl ? 1 : -1;
+        };
+        break;
+    }
+    //sort
+    rowsArray.sort(compare);
+    tbody.append(...rowsArray);
+  }
+</script>
+</body>
+</html>

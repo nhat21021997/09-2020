@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //style and class .. elem.style.left = left;
+        //ClassName và classList : thay đổi className là một các thường xuyên nhất sử dụng trong script
+        // elem.classList.add/remove('class'); dùng để thêm hoặc xóa class
+        // elem.classList.toggle('class'); theo vao 1 class neu no khong ton tai, neu khong thi loai bo no
+        // elem.classList.contains('class'); kiem tra su ton tai cua class, tra ve true/flase
+        //Ngoai ra classList co the lap lai, va chung ta co the kem tra chung bang for..of
+        
+        ///...... Element style
+        //elem.style la mot object va no dung de viet style attribute, setting elem.style.width =' 100px' nghia la width: 100px;
+        //style nhieu hon 2 tu, se dung camelCase: z-index -> zIndex;
+        //doi voi prefixed thi dau - nghia la viet hoa: -webkit-bored-radius -> WebkitBoredRadius;
+        // Resetting the style property
+        // Thỉnh thoảng chúng ta muốn gán cái gì đó cho style property, và xóa nó sau đó. 
+        //trong ví dụ ẩn một element , chỉ cân set element.style.display = 'none'; sau này chúng ta muốn remove nó, chỉ cần set elem.style.display=''; 
+
+        document.body.style.display = 'none';
+        //back to nomarl
+        setTimeout(() => document.body.style.display = '', 1000);
+    </script>
+    <script>
+        //Viết lại đầy đủ css với style.cssText(``); // thuộc tính này hiếm khi được sử dụng, nó không thêm mà thay thế toàn bộ css
+        //........Mind the units
+        //Đừng quên css vào các giá trị của nó: 
+        //documet.body.style.top = 20 // không làm việc
+        // document.body.style.marginTop = '20px'; và giờ nó làm việc
+    </script>
+     <style> body { color: red; margin: 5px } </style>
+    <script>
+        //......Computed styles: getComputedStyle;
+        //Sửa đổi một style là dễ, nhưng là thế nào để đọc được nó, 
+        // Thuộc tính style chỉ tồn tại tronng css, và nó không có bất kfy nguồn css nào khác 
+        // Chúng ta không thể đọc bất cứ thứ gì từ  elem.style, 
+        console.log(document.body.style.color) // empty
+        console.log(document.body.style.marginTop) // empty
+
+    </script>
+    <style>
+        .red{color: red}
+    </style>
+    <script>
+        function showNotification(top, right, html, className) {
+            
+            let div = document.createElement('div');
+            div.className = 'notification';
+            if(className){
+                div.classList.add(className);
+            }
+            div.style.top = top +'px';
+            div.style.right = right + 'px';
+            document.body.append(div);
+            div.innerHTML = html ;
+            setTimeout(() => div.remove(), 1500);
+        }
+        let i = 1;
+        setInterval(() => {
+            showNotification(20, 20, 'Nhat :'+ ++i, 'red')
+        }, 1500);
+    </script>
+   
+</body>
+</html>
